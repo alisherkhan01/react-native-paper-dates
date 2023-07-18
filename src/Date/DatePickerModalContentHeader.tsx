@@ -72,16 +72,14 @@ export default function DatePickerModalContentHeader(
 
   const supportingTextColor = theme.isV3 ? theme.colors.onSurfaceVariant : color
 
-  const textFont = theme?.isV3
-    ? theme.fonts.labelMedium
-    : (theme as any as MD2Theme).fonts.medium
+
 
   return (
     <View style={styles.header}>
       <View>
         <Text
           maxFontSizeMultiplier={1.5}
-          style={[styles.label, { color: supportingTextColor, ...textFont }]}
+          style={[styles.label, { color: theme.colors.primary, fontFamily: 'Poppins-Regular', fontWeight: '600' }]}
         >
           {uppercase ? label.toUpperCase() : label}
         </Text>
@@ -102,26 +100,7 @@ export default function DatePickerModalContentHeader(
         </View>
       </View>
       <View style={styles.fill} />
-      {isEditingEnabled ? (
-        <IconButton
-          icon={
-            collapsed
-              ? editIcon ?? theme.isV3
-                ? 'pencil-outline'
-                : 'pencil'
-              : calendarIcon ?? theme.isV3
-              ? 'calendar-blank'
-              : 'calendar'
-          }
-          accessibilityLabel={
-            collapsed
-              ? getTranslation(props.locale, 'typeInDate')
-              : getTranslation(props.locale, 'pickDateFromCalendar')
-          }
-          iconColor={theme.isV3 ? theme.colors.onSurface : color}
-          onPress={onToggle}
-        />
-      ) : null}
+      
     </View>
   )
 }
@@ -218,15 +197,11 @@ export function HeaderContentRange({
 
   const lighterColor = Color(color).fade(0.5).rgb().toString()
   const startColor = state.startDate
-    ? theme.isV3
-      ? theme.colors.onSurface
-      : color
+    ? theme.colors.primary
     : lighterColor
   const endColor = state.endDate
-    ? theme.isV3
-      ? theme.colors.onSurface
-      : color
-    : lighterColor
+  ? theme.colors.primary
+  : lighterColor
 
   return (
     <>
@@ -234,19 +209,19 @@ export function HeaderContentRange({
         maxFontSizeMultiplier={1.5}
         style={[styles.rangeHeaderText, { color: startColor }]}
       >
-        {state.startDate ? formatter.format(state.startDate) : startLabel}
+        {state.startDate ? formatter.format(state.startDate) : ''}
       </Text>
-      <Text
+      {state.startDate && <Text
         maxFontSizeMultiplier={1.5}
         style={[styles.headerSeparator, { color }]}
       >
         {headerSeparator}
-      </Text>
+      </Text>}
       <Text
         maxFontSizeMultiplier={1.5}
         style={[styles.rangeHeaderText, { color: endColor }]}
       >
-        {state.endDate ? formatter.format(state.endDate) : endLabel}
+        {state.endDate ? formatter.format(state.endDate) : ''}
       </Text>
     </>
   )
@@ -264,20 +239,19 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   header: {
-    height: 75,
+    // height: 75,
     alignItems: 'center',
     flexDirection: 'row',
     paddingLeft: 24,
     paddingRight: 12,
   },
-  headerContentContainer: { marginTop: 5, flexDirection: 'row' },
+  headerContentContainer: { marginTop: 8, flexDirection: 'row' },
   label: { color: '#fff', letterSpacing: 1, fontSize: 13 },
   singleHeaderText: { color: '#fff', fontSize: 25 },
   rangeHeaderText: { color: '#fff', fontSize: 25 },
   excludeInRangeHeaderText: { fontSize: 25 },
   excludeInRangeHeaderTextSmall: {
     fontSize: 14,
-    marginTop: -3,
     marginLeft: 3,
   },
   headerSeparator: {

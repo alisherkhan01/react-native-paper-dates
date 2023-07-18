@@ -5,9 +5,6 @@ import { MD2Theme, Text, useTheme } from 'react-native-paper'
 function DayName({ label }: { label: string }) {
   const theme = useTheme()
 
-  let textFont = theme?.isV3
-    ? theme.fonts.bodySmall
-    : (theme as any as MD2Theme).fonts.medium
 
   return (
     <View style={styles.dayName}>
@@ -15,7 +12,7 @@ function DayName({ label }: { label: string }) {
         maxFontSizeMultiplier={1.5}
         style={[
           styles.dayNameLabel,
-          { ...textFont, color: theme.colors.onSurface },
+          { color: theme.colors.primary },
         ]}
         selectable={false}
       >
@@ -26,6 +23,6 @@ function DayName({ label }: { label: string }) {
 }
 const styles = StyleSheet.create({
   dayName: { flex: 1, alignItems: 'center' },
-  dayNameLabel: { fontSize: 14, opacity: 0.7 },
+  dayNameLabel: { fontSize: 14,  fontWeight: '600'  },
 })
 export default React.memo(DayName)

@@ -9,7 +9,7 @@ import {
   StatusBar,
 } from 'react-native'
 
-import { useTheme } from 'react-native-paper'
+import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper'
 import DatePickerModalContent, {
   DatePickerModalContentMultiProps,
   DatePickerModalContentRangeProps,
@@ -44,8 +44,6 @@ export function DatePickerModal(
     | DatePickerModalSingleProps
     | DatePickerModalMultiProps
 ) {
-  const theme = useTheme()
-  const dimensions = useWindowDimensions()
   const {
     visible,
     animationType,
@@ -61,59 +59,48 @@ export function DatePickerModal(
       default: 'slide',
     })
 
-  const isLight = useHeaderColorIsLight()
-  const headerBackgroundColor = useHeaderBackgroundColor()
-  const insets = useSafeAreaInsets()
-
-  return (
-    <View style={[StyleSheet.absoluteFill]} pointerEvents="box-none">
+    const theme = {
+      ...DefaultTheme,
+      colors: {
+        primary: '#37474F',
+      }
+    };
+  
+    return (
+    <PaperProvider theme={theme}>
+    <View style={{
+      flex: 1
+    }}>
       <Modal
-        animationType={animationTypeCalculated}
-        transparent={true}
         visible={visible}
         onRequestClose={rest.onDismiss}
         presentationStyle="overFullScreen"
-        supportedOrientations={supportedOrientations}
         //@ts-ignore
         statusBarTranslucent={true}
+        animationType="fade"
+        transparent={true}
       >
         <>
-          <TouchableWithoutFeedback onPress={rest.onDismiss}>
-            <View
-              style={[
-                StyleSheet.absoluteFill,
-                styles.modalBackground,
-                { backgroundColor: theme.colors.backdrop },
-              ]}
-            />
-          </TouchableWithoutFeedback>
           <View
-            style={[StyleSheet.absoluteFill, styles.modalRoot]}
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgba(0,0,0,0.5)',
+            }}
             pointerEvents="box-none"
           >
             <View
               style={[
-                styles.modalContent,
-                { backgroundColor: theme.colors.surface },
-                dimensions.width > 650 ? styles.modalContentBig : null,
+                { backgroundColor: '#fff',
+                  width: '90%',
+                  height: '70%',
+                  borderRadius: 16,
+                  paddingBottom: 36,
+                  paddingHorizontal: 8,
+                },
               ]}
             >
-              {disableStatusBar ? null : (
-                <StatusBar
-                  translucent={true}
-                  barStyle={isLight ? 'dark-content' : 'light-content'}
-                />
-              )}
-              {disableStatusBarPadding ? null : (
-                <View
-                  style={[
-                    {
-                      height: insets.top,
-                      backgroundColor: headerBackgroundColor,
-                    },
-                  ]}
-                />
-              )}
               <DatePickerModalContent
                 {...rest}
                 inputEnabled={inputEnabled}
@@ -124,36 +111,8 @@ export function DatePickerModal(
         </>
       </Modal>
     </View>
+    </PaperProvider>
   )
 }
-const supportedOrientations: any = [
-  'portrait',
-  'portrait-upside-down',
-  'landscape',
-  'landscape-left',
-  'landscape-right',
-]
-
-const styles = StyleSheet.create({
-  modalRoot: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-  },
-  modalBackground: {
-    flex: 1,
-  },
-  modalContent: {
-    flex: 1,
-    width: '100%',
-  },
-  modalContentBig: {
-    maxWidth: 600,
-    maxHeight: 800,
-    borderRadius: 10,
-    width: '100%',
-    overflow: 'hidden',
-  },
-})
 
 export default React.memo(DatePickerModal)

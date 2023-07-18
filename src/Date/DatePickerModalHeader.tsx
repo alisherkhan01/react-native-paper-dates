@@ -50,6 +50,9 @@ export default function DatePickerModalHeader(
         <Button
           color={color}
           textColor={theme.isV3 ? theme.colors.primary : color}
+          labelStyle={{
+            fontFamily: 'Poppins-Regular',
+          }}
           onPress={props.onSave}
           disabled={props.saveLabelDisabled ?? false}
           uppercase={props.uppercase ?? true}

@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     right: 0,
     left: 0,
     zIndex: 10,
+    backgroundColor: "#fff"
   },
   buttonContainer: {
     height: buttonContainerHeight,

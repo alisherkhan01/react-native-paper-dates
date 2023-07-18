@@ -98,17 +98,12 @@ function Day(props: {
         >
           <Text
             maxFontSizeMultiplier={1.5}
-            style={[
-              textColor
-                ? {
+            style={[ {
                     color:
-                      theme.isV3 && isToday && selected
-                        ? textColor
-                        : theme.isV3 && isToday
-                        ? theme.colors.primary
-                        : textColor,
-                  }
-                : undefined,
+                      selected
+                        ? '#fff':
+                         theme.colors.primary
+                  },
               { ...textFont },
             ]}
             selectable={false}
