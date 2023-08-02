@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   rightCrop: {
-    flexBasis: 5,
+    flexBasis: 0,
   },
 })
 
