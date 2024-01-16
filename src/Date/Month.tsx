@@ -293,8 +293,9 @@ function Month(props: MonthSingleProps | MonthRangeProps | MonthMultiProps) {
                 styles.monthLabel,
                 {
                   ...textFont,
-                  color: '#37474F',
-                  fontFamily: 'Poppins-Medium',
+                  color: theme.isV3
+                    ? theme.colors.onSurfaceVariant
+                    : theme.colors.onSurface,
                 },
               ]}
               selectable={false}

@@ -182,8 +182,8 @@ export function HeaderContentMulti({
 export function HeaderContentRange({
   locale,
   state,
-  headerSeparator = 'to',
-  startLabel = 'From',
+  headerSeparator = '-',
+  startLabel = 'Start',
   endLabel = 'End',
   color,
 }: HeaderContentProps & { color: string }) {
@@ -192,7 +192,6 @@ export function HeaderContentRange({
     return new Intl.DateTimeFormat(locale, {
       month: 'short',
       day: 'numeric',
-      year: '2-digit'
     })
   }, [locale])
 
@@ -210,22 +209,20 @@ export function HeaderContentRange({
         maxFontSizeMultiplier={1.5}
         style={[styles.rangeHeaderText, { color: startColor }]}
       >
-        {state.startDate ? formatter.format(state.startDate) : startLabel}
+        {state.startDate ? formatter.format(state.startDate) : ''}
       </Text>
-      
-      <Text
+      {state.startDate && <Text
         maxFontSizeMultiplier={1.5}
         style={[styles.headerSeparator, { color }]}
       >
         {headerSeparator}
-      </Text>
+      </Text>}
       <Text
         maxFontSizeMultiplier={1.5}
         style={[styles.rangeHeaderText, { color: endColor }]}
       >
-        {state.endDate ? formatter.format(state.endDate) : endLabel}
+        {state.endDate ? formatter.format(state.endDate) : ''}
       </Text>
- 
     </>
   )
 }
@@ -251,7 +248,7 @@ const styles = StyleSheet.create({
   headerContentContainer: { marginTop: 8, flexDirection: 'row' },
   label: { color: '#fff', letterSpacing: 1, fontSize: 13 },
   singleHeaderText: { color: '#fff', fontSize: 25 },
-  rangeHeaderText: { color: '#fff', fontSize: 25 , fontFamily: 'Poppins-Regular'},
+  rangeHeaderText: { color: '#fff', fontSize: 25 },
   excludeInRangeHeaderText: { fontSize: 25 },
   excludeInRangeHeaderTextSmall: {
     fontSize: 14,
@@ -259,12 +256,9 @@ const styles = StyleSheet.create({
   },
   headerSeparator: {
     color: 'rgba(255,255,255,1)',
-    fontSize: 20,
+    fontSize: 25,
     paddingLeft: 6,
     paddingRight: 6,
-    alignSelf: 'center',
-    marginHorizontal: 4,
-    fontFamily: 'Poppins-Regular'
   },
   appbarHeader: {
     elevation: 0,
