@@ -148,7 +148,7 @@ export function DatePickerModalContent(
           onSave={onInnerConfirm}
           onDismiss={onDismiss}
           saveLabel={props.saveLabel}
-          saveLabelDisabled={props.saveLabelDisabled ?? false}
+          saveLabelDisabled={state?.endDate ? false : true}
           uppercase={props.uppercase ?? defaultUppercase}
           disableSafeTop={disableSafeTop}
           closeIcon={props.closeIcon}
