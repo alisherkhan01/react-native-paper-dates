@@ -183,7 +183,7 @@ export function HeaderContentRange({
   locale,
   state,
   headerSeparator = 'to',
-  startLabel = 'From',
+  startLabel = 'Start',
   endLabel = 'End',
   color,
 }: HeaderContentProps & { color: string }) {
