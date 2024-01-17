@@ -215,7 +215,7 @@ export function HeaderContentRange({
       
       <Text
         maxFontSizeMultiplier={1.5}
-        style={[styles.headerSeparator, { color }]}
+        style={[styles.headerSeparator, { color: lighterColor }]}
       >
         {headerSeparator}
       </Text>
